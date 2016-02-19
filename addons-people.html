@@ -180,7 +180,7 @@
     <script style="text/javascript">
       for (let zone of document.getElementsByClassName(["time-zone"])) {
         console.log(zone.dataset.zone);
-        zone.innerHTML = moment().tz(zone.dataset.zone).format('h:ma');
+        zone.innerHTML = moment().tz(zone.dataset.zone).format('h:mma');
       }
     </script>
   </body>
