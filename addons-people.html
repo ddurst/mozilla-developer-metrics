@@ -178,10 +178,13 @@
     <script src="moment-timezone-with-data-2010-2020.js"></script>
     <script src="moment-timezone.min.js"></script>
     <script style="text/javascript">
-      for (let zone of document.getElementsByClassName(["time-zone"])) {
-        console.log(zone.dataset.zone);
-        zone.innerHTML = moment().tz(zone.dataset.zone).format('h:mma');
-      }
+      function update() {
+        for (let zone of document.getElementsByClassName(["time-zone"])) {
+          zone.innerHTML = moment().tz(zone.dataset.zone).format('h:mma');
+        }
+      };
+      update();
+      setInterval(update, 6000);
     </script>
   </body>
 </html>
