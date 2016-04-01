@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>{{ person.full }}</h2>
+  <p>&laquo; <a href="index.html">back to team list</a></p>
+  <p>IRC nick: {{ person.nick }} &bull; Timezone: {{ person.timezone }}</p>
+  <img src="{{ person.image }}" style="float:right">
+  <h3>Bugs (bugzilla) closed per week</h3>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Start</th>
+        <th>Count</th>
+    </thead>
+    <tbody>
+    {% for start, end, count in bugzilla_bugs.bugs_closed_per_week %}
+      <tr>
+        <td>{{ start }}</td>
+        <td>{{ count }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

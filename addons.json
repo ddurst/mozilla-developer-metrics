@@ -1,0 +1,123 @@
+{
+    "title": "Add-ons team",
+    "start_date": "2016-01-01",
+    "people": {
+        "andym": {
+            "timezone": "America/Vancouver",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=amckay@mozilla.com&type=thumb",
+            "irc": "andym",
+            "full": "Andy McKay",
+            "bugzilla_email": "amckay@mozilla.com",
+            "bugzilla_nick": "amckay",
+            "github": "andymckay"
+        },
+        "aswan": {
+            "timezone": "America/Los_Angeles",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=aswan@mozilla.com&type=thumb",
+            "irc": "aswan",
+            "full": "Andrew Swan",
+            "bugzilla_email": "aswan@mozilla.com",
+            "bugzilla_nick": "aswan",
+            "github": ""
+        },
+        "cgrebs": {
+            "timezone": "Europe/Berlin",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=cgrebs@mozilla.com&type=thumb",
+            "irc": "cgrebs",
+            "full": "Christopher Grebs",
+            "bugzilla_email": "cgrebs@mozilla.com",
+            "bugzilla_nick": "cgrebs",
+            "github": "EnTeQuAk"
+        },
+        "bsilverberg": {
+            "timezone": "America/Toronto",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=bsilverberg@mozilla.com&type=thumb",
+            "irc": "bsilverberg",
+            "full": "Bob Silverberg",
+            "bugzilla_email": "bob.silverberg@gmail.com",
+            "bugzilla_nick": "bsilverberg",
+            "github": "bobsilverberg"
+        },
+        "kmag": {
+            "timezone": "America/Los_Angeles",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=kmaglione@mozilla.com&type=thumb",
+            "irc": "John-Galt",
+            "full": "Kris Maglione",
+            "bugzilla_email": "kmaglione+bmo@mozilla.com",
+            "bugzilla_nick": "kmag",
+            "github": "kmaglione"
+        },
+        "kumar": {
+            "timezone": "America/Chicago",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=kmcmillan@mozilla.com&type=thumb",
+            "irc": "kumar",
+            "full": "Kumar McMillan",
+            "bugzilla_email": "kumar.mcmillan@gmail.com",
+            "bugzilla_nick": "kumar",
+            "github": "kumar303"
+        },
+        "mat": {
+            "timezone": "Europe/Paris",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=mpillard@mozilla.com&type=thumb",
+            "irc": "mat",
+            "full": "Mathieu Pillard",
+            "bugzilla_email": "mpillard@mozilla.com",
+            "bugzilla_nick": "mpillard",
+            "github": "mat"
+        },
+        "mao": {
+            "timezone": "Europe/Rome",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=gmaone@mozilla.com&type=thumb",
+            "irc": "mao",
+            "full": "Giorgio Maone",
+            "bugzilla_email": "g.maone@informaction.com",
+            "bugzilla_nick": "mao",
+            "github": ""
+        },
+        "mattw": {
+            "timezone": "America/Los_Angeles",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=mwein@mozilla.com&type=thumb",
+            "irc": "mattw",
+            "full": "Matthew Wein",
+            "bugzilla_email": "mwein@mozilla.com",
+            "bugzilla_nick": "mattw",
+            "github": ""
+        },
+        "mstriemer": {
+            "timezone": "America/Chicago",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=mstriemer@mozilla.com&type=thumb",
+            "irc": "mstriemer",
+            "full": "Mark Striemer",
+            "bugzilla_email": "mstriemer@mozilla.com",
+            "bugzilla_nick": "mstriemer",
+            "github": "mstriemer"
+        },
+        "scolville": {
+            "timezone": "Europe/London",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=scolville@mozilla.com&type=thumb",
+            "irc": "muffinresearch",
+            "full": "Stuart Colville",
+            "bugzilla_email": "scolville@mozilla.com",
+            "bugzilla_nick": "muffinresearch",
+            "github": "muffinresearch"
+        },
+        "rpl": {
+            "timezone": "Europe/Rome",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=lgreco@mozilla.com&type=thumb",
+            "irc": "rpl",
+            "full": "Luca Greco",
+            "bugzilla_email": "lgreco@mozilla.com",
+            "bugzilla_nick": "rpl",
+            "github": "rpl"
+        },
+        "tofumatt": {
+            "timezone": "Europe/London",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=mmacpherson@mozilla.com&type=thumb",
+            "irc": "tofumatt",
+            "full": "Matthew McPherson",
+            "bugzilla_email": "tofumatt@mozilla.com",
+            "bugzilla_nick": "tofumatt",
+            "github": "tofumatt"
+        }
+    }
+}
