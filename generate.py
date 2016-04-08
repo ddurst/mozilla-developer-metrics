@@ -128,5 +128,5 @@ def generate_templates(data):
 
 if __name__=='__main__':
     clean()
-    data = load_data('addons.json')
+    data = load_data(sys.argv[1])
     generate_templates(data)
