@@ -17,10 +17,10 @@
             <td><a href="{{ bugzilla_queries['bugs_assigned'](person) }}">bugs assigned</a></td>
             <td><a href="{{ bugzilla_queries['closed'](person, chfieldto='Now', chfield='cf_last_resolved', chfieldfrom='-14d') }}">closed -14</a></td>
             <td><a href="{{ bugzilla_queries['reviews_assigned'](person) }}">reviews assigned</a></td>
-            <td>{% if person.github %}<a href="https://github.com/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+assignee%3A{{ person.github }}+">issues open</a>{% endif %}</td>
-            <td>{% if person.github %}<a href="https://github.com/issues?utf8=%E2%9C%93&q=is%3Aclosed+is%3Aissue+assignee%3A{{ person.github }}+">issues closed</a>{% endif %}</td>
-            <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+assignee%3A{{ person.github }}+">pull requests assigned</a>{% endif %}</td>
-            <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+author%3A{{ person.github }}+">pull requests created</a>{% endif %}</td>
+            <td>{% if person.github %}<a href="https://github.com/issues?utf8=%E2%9C%93&q=is%3Aopen+assignee%3A{{ person.github }}+">issues open</a>{% endif %}</td>
+            <td>{% if person.github %}<a href="https://github.com/issues?utf8=%E2%9C%93&q=is%3Aclosed+assignee%3A{{ person.github }}+">issues closed</a>{% endif %}</td>
+            <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+assignee%3A{{ person.github }}+">pull requests assigned</a>{% endif %}</td>
+            <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+author%3A{{ person.github }}+">pull requests created</a>{% endif %}</td>
           </tr>
           {% endfor %}
         </tbody>

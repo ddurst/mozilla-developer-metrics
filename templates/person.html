@@ -2,22 +2,65 @@
 {% block body %}
   <h2>{{ person.full }}</h2>
   <p>&laquo; <a href="index.html">back to team list</a></p>
-  <p>IRC nick: {{ person.nick }} &bull; Timezone: {{ person.timezone }}</p>
-  <img src="{{ person.image }}" style="float:right">
-  <h3>Bugs (bugzilla) closed per week</h3>
-  <table class="table table-hover table-striped">
-    <thead>
-      <tr>
-        <th>Start</th>
-        <th>Count</th>
-    </thead>
-    <tbody>
-    {% for start, end, count in bugzilla_bugs.bugs_closed_per_week %}
-      <tr>
-        <td>{{ start }}</td>
-        <td>{{ count }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+  <p>IRC nick: {{ person.irc }} &bull; Timezone: {{ person.timezone }}</p>
+  <ul>
+    <li><a href="#bugs">Bugs closed</a></li>
+    <li><a href="#reviews">Reviews involved</a></li>
+  </ul>
+  <div class="panel panel-default">
+    <div class="panel-heading"><a id="bugs">&sect;</a> Bugs closed</div>
+    <div class="panel-body">
+      <p>Bugs closed per week assigned to {{ person.irc }}.</p>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Start</th>
+          <th>Bugzilla</th>
+          <th>Github</th>
+          <th>Total</th>
+          <th></th>
+      </thead>
+      <tbody>
+      {% for record in bits.bugs_closed_per_week.merged %}
+        <tr>
+          <td>{{ record.start }}</td>
+          <td><span class="badge">{{ record.bugzilla }}</span></td>
+          <td><span class="badge">{{ record.github }}</span></td>
+          <td><span class="badge">{{ record.total }}</span></td>
+          <td>
+            <progress max="{{ bits.bugs_closed_per_week.max }}" value="{{ record.total }}"></progress>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading"><a id="reviews">&sect;</a> Reviews involved</div>
+    <div class="panel-body">
+      <p>Reviews involved per week involving {{ person.irc }}.</p>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Start</th>
+          <th>Bugzilla</th>
+          <th>Github</th>
+          <th>Total</th>
+          <th></th>
+      </thead>
+      <tbody>
+      {% for record in bits.reviews_involved_per_week.merged %}
+        <tr>
+          <td>{{ record.start }}</td>
+          <td><span class="badge">{{ record.bugzilla }}</span></td>
+          <td><span class="badge">{{ record.github }}</span></td>
+          <td><span class="badge">{{ record.total }}</span></td>
+          <td><progress max="{{ bits.reviews_involved_per_week.max }}" value="{{ record.total }}"></progress></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}

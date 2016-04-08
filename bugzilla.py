@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 from functools import partial
 from urllib import urlencode
 
+from utils import get_weeks, log
+
 import requests
 
 bugzilla_rest = 'https://bugzilla.mozilla.org/rest/bug?'
@@ -39,8 +41,16 @@ def reviews_assigned(person, **kw):
     kw.update({
         'f1': 'attachments.description',
         'o1': 'anywords',
-        'resolution': '---',
         'v1': 'r?' + person['bugzilla_nick']
+    })
+    return kw
+
+def reviews_involved(person, **kw):
+    kw = kw.copy()
+    kw.update({
+        'f1': 'attachments.description',
+        'o1': 'anywordssubstr',
+        'v1': person['bugzilla_nick']
     })
     return kw
 
@@ -55,56 +65,59 @@ def as_query(person, query=None, **kw):
     return bugzilla_query + urlencode(new, True)
 
 
-def get_weeks(start, end):
-    assert start, 'No start specified'
-    assert end, 'No end specified'
-    dates = []
-    current = (start - timedelta(days=start.weekday()))
-    end = (end + timedelta(days=6-end.weekday()))
-    while current < end:
-        week = current + timedelta(days=7)
-        dates.append((current, week))
-        current = week
-
-    return dates
-
-
-def rest_query(query):
+def rest_query(query, cache=True):
     query = bugzilla_rest + urlencode(query)
+
+    if not cache:
+        log.info('Note: not caching bugzilla query.')
+
     query_hash = hashlib.md5()
     query_hash.update(query)
-    cache_key = query_hash.hexdigest()
+    cache_key = 'bugzilla:' + query_hash.hexdigest()
     filename = os.path.join('cache', cache_key + '.json')
 
-    if os.path.exists(filename):
+    if cache and os.path.exists(filename):
         return json.load(open(filename, 'r'))
 
+    log.info('Bugzilla: {}'.format(query))
     result = requests.get(query).json()
-    json.dump(result, open(filename, 'w'))
+    if cache:
+        json.dump(result, open(filename, 'w'))
+
     return result
 
 
-def get_query_per_week(person, parse=None, start=None, end=None):
+def get_query_per_week(person, query, parse=None, start=None, end=None):
+    assert parse
     weeks = get_weeks(start, end)
     results = []
-    for start, end in weeks:
-        query = bugs_closed(person, **parse(start, end))
-        result = rest_query(query)
+    for k, (start, end) in enumerate(weeks):
+        query_url = query(person, **parse(start, end))
+        # Don't cache the last two weeks.
+        cache = bool(os.getenv('FORCE_CACHE', k < (len(weeks) - 2)))
+        result = rest_query(query_url, cache=cache)
         results.append((start, end, len(result['bugs'])))
 
     return results
 
 
-def bugs_closed_per_week(person, start=None, end=None):
-    def parse(week_start, week_end):
-        return {
-            'chfieldto': week_end.strftime('%Y-%m-%d'),
-            'chfield': 'cf_last_resolved',
-            'chfieldfrom': week_start.strftime('%Y-%m-%d'),
-        }
+def parse(week_start, week_end):
+    return {
+        'chfieldto': week_end.strftime('%Y-%m-%d'),
+        'chfield': 'cf_last_resolved',
+        'chfieldfrom': week_start.strftime('%Y-%m-%d'),
+    }
 
+
+def bugs_closed_per_week(person, start=None, end=None):
     return reversed(
-        get_query_per_week(person, parse=parse, start=start, end=end)
+        get_query_per_week(person, bugs_closed, parse=parse, start=start, end=end)
+    )
+
+
+def reviews_involved_per_week(person, start=None, end=None):
+    return reversed(
+        get_query_per_week(person, reviews_involved, parse=parse, start=start, end=end)
     )
 
 
