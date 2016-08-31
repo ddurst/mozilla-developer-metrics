@@ -92,14 +92,14 @@
             "bugzilla_nick": "mstriemer",
             "github": "mstriemer"
         },
-        "scolville": {
-            "timezone": "Europe/London",
-            "image": "https://phonebook.mozilla.org//pic.php?mail=scolville@mozilla.com&type=thumb",
-            "irc": "muffinresearch",
-            "full": "Stuart Colville",
-            "bugzilla_email": "scolville@mozilla.com",
-            "bugzilla_nick": "muffinresearch",
-            "github": "muffinresearch"
+        "robwu_nl_moz": {
+            "timezone": "America/Los_Angeles",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=rwu@mozilla.com&type=thumb",
+            "irc": "robwu_nl_moz",
+            "full": "Rob Wu",
+            "bugzilla_email": "rob@robwu.nl",
+            "bugzilla_nick": "robwu",
+            "github": "Rob--W"
         },
         "rpl": {
             "timezone": "Europe/Rome",
@@ -109,6 +109,15 @@
             "bugzilla_email": "lgreco@mozilla.com",
             "bugzilla_nick": "rpl",
             "github": "rpl"
+        },
+        "scolville": {
+            "timezone": "Europe/London",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=scolville@mozilla.com&type=thumb",
+            "irc": "muffinresearch",
+            "full": "Stuart Colville",
+            "bugzilla_email": "scolville@mozilla.com",
+            "bugzilla_nick": "muffinresearch",
+            "github": "muffinresearch"
         },
         "tofumatt": {
             "timezone": "Europe/London",

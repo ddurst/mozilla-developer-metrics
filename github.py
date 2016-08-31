@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import time
 
 from datetime import datetime, timedelta
 from functools import partial
@@ -20,7 +21,7 @@ def rest_query(query, cache=True):
     query = github_rest + '+'.join(query)
 
     if not cache:
-        log.info('Note: not caching bugzilla query')
+        log.info('Note: not caching github query')
 
     query_hash = hashlib.md5()
     query_hash.update(query)
@@ -33,6 +34,7 @@ def rest_query(query, cache=True):
     log.info('Github: {}'.format(query))
     result = requests.get(query, auth=(GITHUB_USERNAME, GITHUB_TOKEN))
     result.raise_for_status()
+    time.sleep(1)
     result_json = result.json()
 
     if cache:
@@ -93,6 +95,3 @@ def reviews_involved_per_week(person, start=None, end=None):
     return get_query_per_week(
         person, reviews_involved, parse=parse, start=start, end=end
     )
-
-
-reviews_involved_per_week({'github': 'andymckay'}, start=datetime.today() - timedelta(days=180), end=datetime.today())
