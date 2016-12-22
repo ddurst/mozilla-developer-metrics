@@ -103,7 +103,7 @@ def get_query_per_week(person, query, parse=None, start=None, end=None):
     for k, (start, end) in enumerate(weeks):
         query_url = query(person, **parse(start, end))
         # Don't cache the last two weeks.
-        cache = True #bool(os.getenv('FORCE_CACHE', k < (len(weeks) - 2)))
+        cache = bool(os.getenv('FORCE_CACHE', k < (len(weeks) - 2)))
         result = rest_query(query_url, cache=cache)
         results.append((start, end, len(result['bugs'])))
 
