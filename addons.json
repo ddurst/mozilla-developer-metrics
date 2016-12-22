@@ -83,6 +83,15 @@
             "bugzilla_nick": "mattw",
             "github": "matthewjwein"
         },
+        "mixedpuppy": {
+            "timezone": "America/Los_Angeles",
+            "image": "https://phonebook.mozilla.org//pic.php?mail=scaraveo@mozilla.com&type=thumb",
+            "irc": "mixedpuppy",
+            "full": "Shane Caraveo",
+            "bugzilla_email": "mixedpuppy@gmail.com",
+            "bugzilla_nick": "mixedpuppy",
+            "github": "mixedpuppy"
+        },
         "mstriemer": {
             "timezone": "America/Chicago",
             "image": "https://phonebook.mozilla.org//pic.php?mail=mstriemer@mozilla.com&type=thumb",
@@ -128,5 +137,17 @@
             "bugzilla_nick": "tofumatt",
             "github": "tofumatt"
         }
+    },
+    "bugzilla": {
+        "components": [
+            ["WebExtensions: Android", "webext-android"],
+            ["WebExtensions: Compatibility", "webext-compat"],
+            ["WebExtensions: Developer Tools", "webext-devtools"],
+            ["WebExtensions: Experiments", "webext-experiments"],
+            ["WebExtensions: Frontend", "webext-frontend"],
+            ["WebExtensions: General", "webext-general"],
+            ["WebExtensions: Request Handling", "webext-request"],
+            ["WebExtensions: Untriaged", "webext-untriaged"]
+        ]
     }
 }

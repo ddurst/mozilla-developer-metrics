@@ -25,6 +25,20 @@
           {% endfor %}
         </tbody>
       </table>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Component</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for full, shorter in bugzilla_components %}
+          <tr>
+            <td><a href="component-{{ shorter }}.html">{{ full }}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 {% endblock %}
 {% block scripts %}
     <script src="moment.min.js"></script>

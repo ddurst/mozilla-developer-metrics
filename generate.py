@@ -1,4 +1,6 @@
+import csv
 import json
+import StringIO
 
 import os
 import sys
@@ -72,41 +74,99 @@ def merge(method, person, start=None, end=None):
     return {'merged': merged, 'max': maximum}
 
 
+def merge_component(method, component, start=None, end=None):
+    bugzilla_dates = getattr(bugzilla, method)(component, start=start, end=end)
+
+    merged = []
+    maximum = 0
+    for entries in bugzilla_dates:
+        maximum = max(maximum, entries[2])
+        merged.append({
+            'start': entries[0],
+            'end': entries[1],
+            'bugzilla': entries[2],
+            'total': entries[2]
+        })
+
+    return {'merged': merged, 'max': maximum}
+
+
+def csv_file(data):
+    output = StringIO.StringIO()
+    writer = csv.DictWriter(output, data['merged'][0].keys())
+    writer.writeheader()
+    for row in data['merged']:
+        writer.writerow(row)
+
+    output.seek(0)
+    return output.getvalue()
+
+
 def generate_person(filename, template, data):
     for nick, person in data['people'].items():
         new_filename = 'person-{}.html'.format(nick)
+        bugs = merge(
+            'bugs_closed_per_week',
+            person,
+            start=data['start'],
+            end=data['end']
+        )
+        reviews = merge(
+            'reviews_involved_per_week',
+            person,
+            start=data['start'],
+            end=data['end']
+        )
         copy_into_build(
             new_filename,
             template.render(
                 data=data,
                 person=person,
+                nick=nick,
                 bits={
-                    'bugs_closed_per_week':
-                        merge(
-                            'bugs_closed_per_week',
-                            person,
-                            start=data['start'],
-                            end=data['end']
-                        ),
-                    'reviews_involved_per_week':
-                        merge(
-                            'reviews_involved_per_week',
-                            person,
-                            start=data['start'],
-                            end=data['end']
-                        )
+                    'bugs_closed_per_week': bugs,
+                    'reviews_involved_per_week': reviews
                 }
             )
         )
+        new_filename = 'person-{}-bugs.csv'.format(nick)
+        copy_into_build(new_filename, csv_file(bugs))
+        new_filename = 'person-{}-reviews.csv'.format(nick)
+        copy_into_build(new_filename, csv_file(reviews))
 
 
+def generate_components(filename, template, data):
+    for full, shorter in data['bugzilla']['components']:
+        new_filename = 'component-{}.html'.format(shorter)
+        result = merge_component(
+            'bugs_closed_by_component_per_week',
+            full,
+            start=data['start'],
+            end=data['end']
+        )
+        copy_into_build(
+            new_filename,
+            template.render(
+                data=data,
+                component=full,
+                shorter=shorter,
+                bits={'bugs_closed_by_component_per_week': result}
+            )
+        )
+        new_filename = 'component-{}.csv'.format(shorter)
+        copy_into_build(
+            new_filename,
+            csv_file(result)
+        )
 
 def generate_index(filename, template, data):
     people = sorted((k, v) for k, v in data['people'].items())
+    components = data.get('bugzilla', {}).get('components', [])
     copy_into_build(
         filename,
         template.render(
             data=data, people=people,
+            bugzilla_components=components,
             bugzilla_queries=bugzilla.queries
         )
     )

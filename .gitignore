@@ -2,3 +2,4 @@
 build/*.html
 build/*.js
 cache/*.json
+build/*.csv

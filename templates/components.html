@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>{{ component }}</h2>
+  <p>&laquo; <a href="index.html">back to team list</a></p>
+  <div class="panel panel-default">
+    <div class="panel-heading"><a id="bugs">&sect;</a> Bugs closed</div>
+    <div class="panel-body">
+      <p>Bugs closed per week per component in Bugzilla (<a href="component-{{ shorter }}.csv">CSV File</a>)</p>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Start</th>
+          <th>Bugzilla</th>
+          <th>Total</th>
+          <th></th>
+      </thead>
+      <tbody>
+      {% for record in bits.bugs_closed_by_component_per_week.merged %}
+        <tr>
+          <td>{{ record.start }}</td>
+          <td><span class="badge">{{ record.bugzilla }}</span></td>
+          <td><span class="badge">{{ record.total }}</span></td>
+          <td><progress max="{{ bits.bugs_closed_by_component_per_week.max }}" value="{{ record.total }}"></progress></td>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

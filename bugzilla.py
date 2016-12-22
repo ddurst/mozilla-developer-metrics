@@ -36,6 +36,15 @@ def bugs_closed(person, **kw):
     return kw
 
 
+def bugs_closed_component(component, **kw):
+    kw = kw.copy()
+    kw.update({
+        'component': component,
+        'status': ['RESOLVED', 'VERIFIED', 'CLOSED']
+    })
+    return kw
+
+
 def reviews_assigned(person, **kw):
     kw = kw.copy()
     kw.update({
@@ -94,7 +103,7 @@ def get_query_per_week(person, query, parse=None, start=None, end=None):
     for k, (start, end) in enumerate(weeks):
         query_url = query(person, **parse(start, end))
         # Don't cache the last two weeks.
-        cache = bool(os.getenv('FORCE_CACHE', k < (len(weeks) - 2)))
+        cache = True #bool(os.getenv('FORCE_CACHE', k < (len(weeks) - 2)))
         result = rest_query(query_url, cache=cache)
         results.append((start, end, len(result['bugs'])))
 
@@ -118,6 +127,12 @@ def bugs_closed_per_week(person, start=None, end=None):
 def reviews_involved_per_week(person, start=None, end=None):
     return reversed(
         get_query_per_week(person, reviews_involved, parse=parse, start=start, end=end)
+    )
+
+
+def bugs_closed_by_component_per_week(component, start=None, end=None):
+    return reversed(
+        get_query_per_week(component, bugs_closed_component, parse=parse, start=start, end=end)
     )
 
 
