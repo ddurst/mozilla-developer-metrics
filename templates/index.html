@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+    <h3>Stats per person</h3>
       <table class="table table-hover table-striped">
         <thead>
           <tr>
@@ -25,6 +26,7 @@
           {% endfor %}
         </tbody>
       </table>
+      <h3>Bugs closed per component</h3>
       <table class="table table-hover table-striped">
         <thead>
           <tr>
@@ -39,6 +41,11 @@
           {% endfor %}
         </tbody>
       </table>
+      <h3>Other reports</h3>
+      <ul>
+        <li><a href="reviews.html">Reviews outstanding</a></li>
+        <li><a href="blockers.html">Bugs that block the most other bugs</a></li>
+      </ul>
 {% endblock %}
 {% block scripts %}
     <script src="moment.min.js"></script>

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>Blocking bugs</h2>
+  <p>&laquo; <a href="index.html">back to team list</a></p>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <p>Bugs that block the most other bugs.</p>
+    </div>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Bug #</th>
+          <th>Summary</th>
+          <th>Total</th>
+          <th>Open blocked bugs</th>
+          <th>Closed blocked bugs</th>
+      </thead>
+      <tbody>
+      {% for bug in blockers %}
+        <tr>
+          <td><a href="https://bugzilla.mozilla.org/showdependencytree.cgi?id={{ bug['id'] }}&hide_resolved=0">{{ bug['id'] }}</a></td>
+          <td>{{ bug['summary'] }}</td>
+          <td><span class="label label-primary">{{ bug['total'] }}</span></td>
+          <td><span class="label label-danger">{{ bug['open']|length }}</span></td>
+          <td><span class="label label-success">{{ bug['closed']|length }}</span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

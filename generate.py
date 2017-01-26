@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 import json
 import StringIO
 
@@ -6,15 +7,15 @@ import os
 import sys
 import shutil
 
-from datetime import datetime
-
 from jinja2 import Environment, FileSystemLoader
 env = Environment(loader=FileSystemLoader('templates'))
 
+import blockers
 import bugzilla
 import github
+import reviews
 
-from utils import log
+from utils import Encoder, log
 
 
 def clean():
@@ -172,7 +173,36 @@ def generate_index(filename, template, data):
     )
 
 
+def generate_reviews(filename, template, data):
+    records = reviews.collect(data)
+    copy_into_build(
+        filename,
+        template.render(
+            data=data, reviews=records
+        )
+    )
+    copy_into_build(
+        filename.replace('.html', '.json'),
+        json.dumps(records, cls=Encoder, indent=2)
+    )
+
+
+def generate_blockers(filename, template, data):
+    bugs = blockers.collect(data)
+    copy_into_build(
+        filename,
+        template.render(
+            data=data, blockers=bugs
+        )
+    )
+    copy_into_build(
+        filename.replace('.html', '.json'),
+        json.dumps(bugs, cls=Encoder, indent=2)
+    )
+
+
 def generate_templates(data):
+    data['generated'] = datetime.now()
     for filename in os.listdir('templates'):
         if filename == 'layout.html':
             continue

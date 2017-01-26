@@ -65,15 +65,6 @@
             "bugzilla_nick": "mpillard",
             "github": "diox"
         },
-        "mao": {
-            "timezone": "Europe/Rome",
-            "image": "https://phonebook.mozilla.org//pic.php?mail=gmaone@mozilla.com&type=thumb",
-            "irc": "mao",
-            "full": "Giorgio Maone",
-            "bugzilla_email": "g.maone@informaction.com",
-            "bugzilla_nick": "mao",
-            "github": ""
-        },
         "mattw": {
             "timezone": "America/Los_Angeles",
             "image": "https://phonebook.mozilla.org//pic.php?mail=mwein@mozilla.com&type=thumb",

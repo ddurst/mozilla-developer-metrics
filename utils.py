@@ -1,7 +1,17 @@
+import json
 import logging
 import sys
 
-from datetime import timedelta
+import datetime as datetime_base
+from datetime import datetime, timedelta
+
+
+class Encoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime_base.date):
+            return datetime.strftime(obj, '%Y-%m-%d')
+
+        return json.JSONEncoder.default(self, obj)
 
 
 def get_weeks(start, end):
