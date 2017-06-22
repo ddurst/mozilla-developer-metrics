@@ -48,11 +48,30 @@ def bugs_closed_component(component, **kw):
 def reviews_assigned(person, **kw):
     kw = kw.copy()
     kw.update({
-        'f1': 'attachments.description',
-        'o1': 'anywords',
-        'v1': 'r?' + person['bugzilla_nick']
+        'status': ['UNCONFIRMED', 'ASSIGNED', 'REOPENED', 'NEW'],
+        'f1': 'flagtypes.name',
+        'o1': 'substring',
+        'v1': 'review?',
+        'f2': 'requestees.login_name',
+        'o2': 'substring',
+        'v2': person['bugzilla_nick']
     })
     return kw
+
+
+def ni_assigned(person, **kw):
+    kw = kw.copy()
+    kw.update({
+        'status': ['UNCONFIRMED', 'ASSIGNED', 'REOPENED', 'NEW'],
+        'f1': 'flagtypes.name',
+        'o1': 'substring',
+        'v1': 'needinfo?',
+        'f2': 'requestees.login_name',
+        'o2': 'substring',
+        'v2': person['bugzilla_nick']
+    })
+    return kw
+
 
 def reviews_involved(person, **kw):
     kw = kw.copy()
@@ -139,5 +158,6 @@ def bugs_closed_by_component_per_week(component, start=None, end=None):
 queries = {
     'bugs_assigned': partial(as_query, query='bugs_assigned'),
     'closed': partial(as_query, query='bugs_closed'),
-    'reviews_assigned': partial(as_query, query='reviews_assigned')
+    'reviews_assigned': partial(as_query, query='reviews_assigned'),
+    'ni_assigned': partial(as_query, query='ni_assigned')
 }
