@@ -35,11 +35,11 @@ def load_data(filename):
     data = json.load(open(filename, 'r'))
 
     data['start'] = datetime.strptime(
-        data.get('start', '2016-01-01'),
+        data.get('start_date', '2016-01-01'),
         '%Y-%m-%d'
         ).date()
     data['end'] = datetime.strptime(
-        data.get('end', datetime.today().strftime('%Y-%m-%d')),
+        data.get('end_date', datetime.today().strftime('%Y-%m-%d')),
         '%Y-%m-%d'
         ).date()
     return data
@@ -218,5 +218,6 @@ def generate_templates(data):
 
 if __name__=='__main__':
     clean()
+    assert len(sys.argv) == 2, "Specify a JSON config file."
     data = load_data(sys.argv[1])
     generate_templates(data)
