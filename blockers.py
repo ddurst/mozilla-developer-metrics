@@ -35,7 +35,7 @@ def get_one_bug(id):
     }
 
     res = requests.get(url, params=params)
-    if res.status_code == 401:
+    if res.status_code in (400, 401):
         log.warning(
             'Failed to get bug {} response {}'.format(id, res.status_code))
         return None

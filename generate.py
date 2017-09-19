@@ -13,7 +13,6 @@ env = Environment(loader=FileSystemLoader('templates'))
 import blockers
 import bugzilla
 import github
-import reviews
 
 from utils import Encoder, log
 
@@ -103,39 +102,6 @@ def csv_file(data):
     return output.getvalue()
 
 
-def generate_person(filename, template, data):
-    for nick, person in data['people'].items():
-        new_filename = 'person-{}.html'.format(nick)
-        bugs = merge(
-            'bugs_closed_per_week',
-            person,
-            start=data['start'],
-            end=data['end']
-        )
-        reviews = merge(
-            'reviews_involved_per_week',
-            person,
-            start=data['start'],
-            end=data['end']
-        )
-        copy_into_build(
-            new_filename,
-            template.render(
-                data=data,
-                person=person,
-                nick=nick,
-                bits={
-                    'bugs_closed_per_week': bugs,
-                    'reviews_involved_per_week': reviews
-                }
-            )
-        )
-        new_filename = 'person-{}-bugs.csv'.format(nick)
-        copy_into_build(new_filename, csv_file(bugs))
-        new_filename = 'person-{}-reviews.csv'.format(nick)
-        copy_into_build(new_filename, csv_file(reviews))
-
-
 def generate_components(filename, template, data):
     for full, shorter in data['bugzilla']['components']:
         new_filename = 'component-{}.html'.format(shorter)
@@ -170,20 +136,6 @@ def generate_index(filename, template, data):
             bugzilla_components=components,
             bugzilla_queries=bugzilla.queries
         )
-    )
-
-
-def generate_reviews(filename, template, data):
-    records = reviews.collect(data)
-    copy_into_build(
-        filename,
-        template.render(
-            data=data, reviews=records
-        )
-    )
-    copy_into_build(
-        filename.replace('.html', '.json'),
-        json.dumps(records, cls=Encoder, indent=2)
     )
 
 

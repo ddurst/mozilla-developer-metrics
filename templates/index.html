@@ -13,7 +13,7 @@
         <tbody>
           {% for nick, person in people %}
           <tr>
-            <td><a href="person-{{ nick }}.html">{{ nick }}</a></td>
+            <td>{{ nick }}</td>
             <td class="time-zone" data-zone="{{ person.timezone }}"></td>
             <td><a href="{{ bugzilla_queries['bugs_assigned'](person) }}">bugs assigned</a></td>
             <td><a href="{{ bugzilla_queries['closed'](person, chfieldto='Now', chfield='cf_last_resolved', chfieldfrom='-14d') }}">closed -14</a></td>
@@ -44,7 +44,6 @@
       </table>
       <h3>Other reports</h3>
       <ul>
-        <li><a href="reviews.html">Reviews outstanding</a></li>
         <li><a href="blockers.html">Bugs that block the most other bugs</a></li>
       </ul>
 {% endblock %}

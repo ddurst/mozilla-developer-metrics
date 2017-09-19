@@ -65,15 +65,6 @@
             "bugzilla_nick": "mpillard",
             "github": "diox"
         },
-        "mattw": {
-            "timezone": "America/Los_Angeles",
-            "image": "https://phonebook.mozilla.org//pic.php?mail=mwein@mozilla.com&type=thumb",
-            "irc": "mattw",
-            "full": "Matthew Wein",
-            "bugzilla_email": "mwein@mozilla.com",
-            "bugzilla_nick": "mattw",
-            "github": "matthewjwein"
-        },
         "mixedpuppy": {
             "timezone": "America/Los_Angeles",
             "image": "https://phonebook.mozilla.org//pic.php?mail=scaraveo@mozilla.com&type=thumb",
@@ -126,6 +117,15 @@
             "full": "Matthew McPherson",
             "bugzilla_email": "tofumatt@mozilla.com",
             "bugzilla_nick": "tofumatt",
+            "github": "tofumatt"
+        },
+        "zombie": {
+            "timezone": "Europe/Rome",
+            "image": "",
+            "irc": "zombie",
+            "full": "Tomislav Jovanovic",
+            "bugzilla_email": "tomica@gmail.com",
+            "bugzilla_nick": "zombie",
             "github": "tofumatt"
         }
     },
