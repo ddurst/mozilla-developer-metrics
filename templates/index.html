@@ -1,28 +1,40 @@
 {% extends "layout.html" %}
 {% block body %}
     <h3>Stats per person</h3>
-      <table class="table table-hover table-striped">
+      <table class="table table-striped-double">
         <thead>
           <tr>
-            <th></th>
-            <th>Local Time</th>
-            <th colspan="4">Bugzilla</th>
-            <th colspan="4">Github</th>
+            <th>person</th>
+            <th>local time</th>
+            <th colspan="9">links</th>
           </tr>
         </thead>
         <tbody>
           {% for nick, person in people %}
           <tr>
-            <td>{{ nick }}</td>
-            <td class="time-zone" data-zone="{{ person.timezone }}"></td>
-            <td><a href="{{ bugzilla_queries['bugs_assigned'](person) }}">bugs assigned</a></td>
-            <td><a href="{{ bugzilla_queries['closed'](person, chfieldto='Now', chfield='cf_last_resolved', chfieldfrom='-14d') }}">closed -14</a></td>
-            <td><a href="{{ bugzilla_queries['ni_assigned'](person) }}">ni assigned</a></td>
-            <td><a href="{{ bugzilla_queries['reviews_assigned'](person) }}">reviews assigned</a></td>
+            <td rowspan="2">{{ nick }}</td>
+            <td rowspan="2" class="time-zone" data-zone="{{ person.timezone }}"></td>
+            <td><b>bugzilla:</b></td>
+            <td><a href="{{ bugzilla_queries['bugs_assigned'](person) }}">open and assigned</a></td>
+            <td><a href="{{ bugzilla_queries['reviews_assigned'](person) }}">reviews requested</a></td>
+            <td><a href="{{ bugzilla_queries['ni_assigned'](person) }}">open and NI requested</a></td>
+            <td><a href="{{ bugzilla_queries['closed'](person) }}">all closed</a></td>
+<!--            <td><a href="{{ bugzilla_queries['closed'](person, chfieldto='Now', chfield='cf_last_resolved', chfieldfrom='-14d') }}">closed -14</a></td>-->
+            <td><a href="{{ bugzilla_queries['fixed_year'](person) }}">fixed in year</a></td>
+            <td><a href="{{ bugzilla_queries['created_year'](person) }}">created in year</a></td>
+            <td><a href="{{ bugzilla_queries['created_year_open'](person) }}">created in year and open</a></td>
+            <td><a href="{{ bugzilla_queries['commented_other_changed_year'](person) }}">commented on someone else's in year</a></td>
+          </tr>
+            {% if person.github %}
+          <tr>
+            <td><b>github:</b></td>
             <td>{% if person.github %}<a href="https://github.com/issues?utf8=%E2%9C%93&q=is%3Aopen+assignee%3A{{ person.github }}+">issues open</a>{% endif %}</td>
             <td>{% if person.github %}<a href="https://github.com/issues?utf8=%E2%9C%93&q=is%3Aclosed+assignee%3A{{ person.github }}+">issues closed</a>{% endif %}</td>
             <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+assignee%3A{{ person.github }}+">pull requests assigned</a>{% endif %}</td>
             <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+author%3A{{ person.github }}+">pull requests created</a>{% endif %}</td>
+            <td colspan="4"></td>
+          </tr>
+            {% endif %}
           </tr>
           {% endfor %}
         </tbody>
@@ -35,9 +47,9 @@
           </tr>
         </thead>
         <tbody>
-          {% for full, shorter in bugzilla_components %}
+          {% for product, full, shorter in bugzilla_components %}
           <tr>
-            <td><a href="component-{{ shorter }}.html">{{ full }}</a></td>
+            <td><a href="component-{{ shorter }}.html">{{ product }}: {{ full }}</a></td>
           </tr>
           {% endfor %}
         </tbody>

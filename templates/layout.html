@@ -3,6 +3,18 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    table {
+      border-bottom: 2px solid #ddd;
+    }
+    .table-striped > tbody > tr:nth-of-type(2n+1) {
+      background-color: #eee;
+    }
+    .table-striped-double > tbody > tr:nth-of-type(4n-2),
+    .table-striped-double > tbody > tr:nth-of-type(4n-3) {
+      background-color: #eee;
+    } 
+    </style>
   </head>
   <body>
     <div class="container">
@@ -14,7 +26,7 @@
     {% block scripts %}
     {% endblock %}
       <hr>
-      <p><a href="https://github.com/andymckay/mozilla-developer-metrics">Source on github</a></p>
+      <p><a href="https://github.com/ddurst/mozilla-developer-metrics">Source on github</a></p>
   </div>
   </body>
 </html>

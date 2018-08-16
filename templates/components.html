@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>{{ component }}</h2>
+  <h2>{{ product }}: {{ component }}</h2>
   <p>&laquo; <a href="index.html">back to team list</a></p>
   <div class="panel panel-default">
     <div class="panel-heading"><a id="bugs">&sect;</a> Bugs closed</div>
     <div class="panel-body">
-      <p>Bugs closed per week per component in Bugzilla (<a href="component-{{ shorter }}.csv">CSV File</a>)</p>
+      <p>Bugs closed per week per product/component in Bugzilla (<a href="{{ shorter }}.csv">CSV File</a>)</p>
     </div>
     <table class="table table-hover table-striped">
       <thead>

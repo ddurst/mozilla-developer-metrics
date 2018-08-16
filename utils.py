@@ -14,6 +14,15 @@ class Encoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
+def get_year(year):
+    assert year, 'No seed year given'
+    window = {}
+    window['start'] = "%d-01-01" % year
+    window['end'] = "%d-01-01" % (year+1)
+
+    return window
+
+
 def get_weeks(start, end):
     assert start, 'No start specified'
     assert end, 'No end specified'

@@ -74,8 +74,8 @@ def merge(method, person, start=None, end=None):
     return {'merged': merged, 'max': maximum}
 
 
-def merge_component(method, component, start=None, end=None):
-    bugzilla_dates = getattr(bugzilla, method)(component, start=start, end=end)
+def merge_component(method, product, component, start=None, end=None):
+    bugzilla_dates = getattr(bugzilla, method)(product, component, start=start, end=end)
 
     merged = []
     maximum = 0
@@ -103,10 +103,11 @@ def csv_file(data):
 
 
 def generate_components(filename, template, data):
-    for full, shorter in data['bugzilla']['components']:
+    for product, full, shorter in data['bugzilla']['components']:
         new_filename = 'component-{}.html'.format(shorter)
         result = merge_component(
             'bugs_closed_by_component_per_week',
+            product,
             full,
             start=data['start'],
             end=data['end']
@@ -115,19 +116,22 @@ def generate_components(filename, template, data):
             new_filename,
             template.render(
                 data=data,
+                product=product,
                 component=full,
                 shorter=shorter,
                 bits={'bugs_closed_by_component_per_week': result}
             )
         )
-        new_filename = 'component-{}.csv'.format(shorter)
+        new_filename = '{}.csv'.format(shorter)
         copy_into_build(
             new_filename,
             csv_file(result)
         )
 
+
 def generate_index(filename, template, data):
     people = sorted((k, v) for k, v in data['people'].items())
+    # components = data.get('bugzilla', {}).get('components', [])
     components = data.get('bugzilla', {}).get('components', [])
     copy_into_build(
         filename,

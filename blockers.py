@@ -4,25 +4,60 @@ import time
 
 from utils import log
 
+
 BASE_URL = 'https://bugzilla.mozilla.org'
 URL = '{}/rest/bug'.format(BASE_URL)
+BUGZILLA_TOKEN = os.getenv('BUGZILLA_MDM_TOKEN')
 
 BUG_CACHE = {}
 
 
+def authd_request(url, params):
+    params['api_key'] = BUGZILLA_TOKEN
+    return requests.get(url, params=params)
+
+
 def get_overall_blockers(data):
     start = time.time()
+#    components = [v[1] for v in data['bugzilla']['components']]
     params = {
         'f1': 'blocked',
         'o1': 'isnotempty',
         'include_fields': 'blocks,id,summary',
         'status': ['UNCONFIRMED', 'NEW', 'ASSIGNED', 'REOPENED'],
-        'component': [v[0] for v in data['bugzilla']['components']]
+#        'component': components
     }
-    res = requests.get(URL, params=params)
+    # startval is the field|order|value index already used in param above
+    params.update(get_product_components(data, 1))
+    res = authd_request(URL, params=params)
     res.raise_for_status()
     log.debug('Getting overall blockers took: {}'.format(time.time() - start))
     return res.json()['bugs']
+
+
+def get_product_components(data, startval):
+    params = {
+        'j_top': 'OR'
+    }
+    counter = startval
+    params_template = [
+        ['f', 'OP'],
+        ['f', 'product', 'o', 'equals', 'v'],
+        ['f', 'component', 'o', 'equals', 'v'],
+        ['f', 'CP']
+    ]
+    for product_component in data['bugzilla']['components']:
+        for group in params_template:
+            counter += 1
+            params[group[0] + str(counter)] = group[1]
+            if len(group) > 2:
+                params[group[0] + str(counter)] = group[1]
+                params[group[2] + str(counter)] = group[3]
+                if group[1] == "product":
+                    params[group[4] + str(counter)] = product_component[0]
+                if group[1] == "component":
+                    params[group[4] + str(counter)] = product_component[1]
+    return params
 
 
 def get_one_bug(id):
@@ -34,7 +69,7 @@ def get_one_bug(id):
         'include_fields': 'id,status,resolution,blocks'
     }
 
-    res = requests.get(url, params=params)
+    res = authd_request(url, params=params)
     if res.status_code in (400, 401):
         log.warning(
             'Failed to get bug {} response {}'.format(id, res.status_code))
@@ -61,6 +96,9 @@ def recurse_blockers(bug):
 
 
 def collect(data):
+    if not data['bugzilla']['components']:
+        return []
+
     blocks = {}
     for bug in get_overall_blockers(data):
         if len(bug['blocks']) > 2:

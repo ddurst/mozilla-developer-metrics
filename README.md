@@ -17,6 +17,12 @@ to provide an API key and token as environment variables:
 `export GITHUB_USERNAME=your-username`
 `export GITHUB_TOKEN=your-token`
 
+To authenticate Bugzilla requests, you'll need to provide an 
+[API key](https://bugzilla.mozilla.org/userprefs.cgi?tab=apikey) as an 
+environment variable:
+
+`export BUGZILLA_MDM_TOKEN=your-api-key`
+
 Generation
 ----------
 

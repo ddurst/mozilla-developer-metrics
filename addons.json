@@ -1,6 +1,6 @@
 {
     "title": "Add-ons team",
-    "start_date": "2016-01-01",
+    "start_date": "2018-01-01",
     "people": {
         "andym": {
             "timezone": "America/Vancouver",
@@ -83,10 +83,19 @@
             "bugzilla_nick": "mstriemer",
             "github": "mstriemer"
         },
-        "robwu_nl_moz": {
+        "rmullin": {
+            "timezone": "America/Toronto",
+            "image": "",
+            "irc": "rebm",
+            "full": "Rebecca Mullin",
+            "bugzilla_email": "rmullin@mozilla.com",
+            "bugzilla_nick": "Rebecca",
+            "github": "rebmullin"
+        },
+        "robwu_nl": {
             "timezone": "America/Los_Angeles",
             "image": "https://phonebook.mozilla.org//pic.php?mail=rwu@mozilla.com&type=thumb",
-            "irc": "robwu_nl_moz",
+            "irc": "robwu_nl",
             "full": "Rob Wu",
             "bugzilla_email": "rob@robwu.nl",
             "bugzilla_nick": "robwu",
@@ -110,14 +119,14 @@
             "bugzilla_nick": "muffinresearch",
             "github": "muffinresearch"
         },
-        "tofumatt": {
-            "timezone": "Europe/London",
-            "image": "https://phonebook.mozilla.org//pic.php?mail=mmacpherson@mozilla.com&type=thumb",
-            "irc": "tofumatt",
-            "full": "Matthew McPherson",
-            "bugzilla_email": "tofumatt@mozilla.com",
-            "bugzilla_nick": "tofumatt",
-            "github": "tofumatt"
+        "willdurand": {
+            "timezone": "Europe/Berlin",
+            "image": "https://phonebook.mozilla.org/pic.php?mail=wdurand@mozilla.com&type=thumb",
+            "irc": "willdurand",
+            "full": "Will Durand",
+            "bugzilla_email": "wdurand@mozilla.com",
+            "bugzilla_nick": "willdurand",
+            "github": "willdurand"
         },
         "zombie": {
             "timezone": "Europe/Rome",
@@ -126,19 +135,24 @@
             "full": "Tomislav Jovanovic",
             "bugzilla_email": "tomica@gmail.com",
             "bugzilla_nick": "zombie",
-            "github": "tofumatt"
+            "github": "error"
         }
     },
     "bugzilla": {
         "components": [
-            ["WebExtensions: Android", "webext-android"],
-            ["WebExtensions: Compatibility", "webext-compat"],
-            ["WebExtensions: Developer Tools", "webext-devtools"],
-            ["WebExtensions: Experiments", "webext-experiments"],
-            ["WebExtensions: Frontend", "webext-frontend"],
-            ["WebExtensions: General", "webext-general"],
-            ["WebExtensions: Request Handling", "webext-request"],
-            ["WebExtensions: Untriaged", "webext-untriaged"]
+            ["WebExtensions", "Android", "webext-android"],
+            ["WebExtensions", "Compatibility", "webext-compat"],
+            ["WebExtensions", "Developer Tools", "webext-devtools"],
+            ["WebExtensions", "Experiments", "webext-experiments"],
+            ["WebExtensions", "Frontend", "webext-frontend"],
+            ["WebExtensions", "General", "webext-general"],
+            ["WebExtensions", "Request Handling", "webext-request"],
+            ["WebExtensions", "Storage", "webext-storage"],
+            ["WebExtensions", "Themes", "webext-themes"],
+            ["WebExtensions", "Untriaged", "webext-untriaged"],
+            ["Firefox for Android", "Add-on Manager", "firefox-android-addonmanager"],
+            ["Toolkit", "Add-ons Manager", "firefox-toolkit-addonsmanager"],
+            ["addons.mozilla.org", "Security", "amo-security"]
         ]
     }
 }
