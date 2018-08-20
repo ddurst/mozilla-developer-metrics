@@ -6,7 +6,7 @@
           <tr>
             <th>person</th>
             <th>local time</th>
-            <th colspan="9">links</th>
+            <th colspan="11">links</th>
           </tr>
         </thead>
         <tbody>
@@ -17,9 +17,10 @@
             <td><b>bugzilla:</b></td>
             <td><a href="{{ bugzilla_queries['bugs_assigned'](person) }}">open and assigned</a></td>
             <td><a href="{{ bugzilla_queries['reviews_assigned'](person) }}">reviews requested</a></td>
-            <td><a href="{{ bugzilla_queries['ni_assigned'](person) }}">open and NI requested</a></td>
+            <td><a href="{{ bugzilla_queries['ni_assigned_open'](person) }}">NI requested and open</a></td>
+            <td><a href="{{ bugzilla_queries['ni_assigned'](person) }}">all NI requested (not just open)</a></td>
             <td><a href="{{ bugzilla_queries['closed'](person) }}">all closed</a></td>
-<!--            <td><a href="{{ bugzilla_queries['closed'](person, chfieldto='Now', chfield='cf_last_resolved', chfieldfrom='-14d') }}">closed -14</a></td>-->
+            <td><a href="{{ bugzilla_queries['closed'](person, chfieldto='Now', chfield='cf_last_resolved', chfieldfrom='-14d') }}">closed -14</a></td>
             <td><a href="{{ bugzilla_queries['fixed_year'](person) }}">fixed in year</a></td>
             <td><a href="{{ bugzilla_queries['created_year'](person) }}">created in year</a></td>
             <td><a href="{{ bugzilla_queries['created_year_open'](person) }}">created in year and open</a></td>
@@ -32,7 +33,7 @@
             <td>{% if person.github %}<a href="https://github.com/issues?utf8=%E2%9C%93&q=is%3Aclosed+assignee%3A{{ person.github }}+">issues closed</a>{% endif %}</td>
             <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+assignee%3A{{ person.github }}+">pull requests assigned</a>{% endif %}</td>
             <td>{% if person.github %}<a href="https://github.com/pulls?utf8=%E2%9C%93&q=is%3Aopen+author%3A{{ person.github }}+">pull requests created</a>{% endif %}</td>
-            <td colspan="4"></td>
+            <td colspan="6"></td>
           </tr>
             {% endif %}
           </tr>
