@@ -67,13 +67,15 @@ def reviews_assigned(person, **kw):
 def ni_assigned_open(person, **kw):
     kw = kw.copy()
     kw.update({
-        'status': ['UNCONFIRMED', 'ASSIGNED', 'REOPENED', 'NEW'],
         'f1': 'flagtypes.name',
         'o1': 'substring',
-        'v1': 'needinfo?',
+        'v1': 'needinfo',
         'f2': 'requestees.login_name',
         'o2': 'substring',
-        'v2': person['bugzilla_email']
+        'v2': person['bugzilla_email'],
+        'f3': 'bug_status',
+        'o3': 'regexp',
+        'v3': 'UNCONFIRMED|ASSIGNED|REOPENED|NEW',
     })
     return kw
 
@@ -81,10 +83,12 @@ def ni_assigned_open(person, **kw):
 def ni_assigned(person, **kw):
     kw = kw.copy()
     kw.update({
-        'type': 'needinfo',
-        'action': 'queue',
-        'group': 'type',
-        'requestee': person['bugzilla_email']
+        'f1': 'flagtypes.name',
+        'o1': 'substring',
+        'v1': 'needinfo',
+        'f2': 'requestees.login_name',
+        'o2': 'substring',
+        'v2': person['bugzilla_email']
     })
     return kw
 
@@ -245,9 +249,9 @@ queries = {
     # all bugs with reviews requested of them
     'reviews_assigned': partial(as_query, query='reviews_assigned'),
     # all bugs with open NI on them
-    'ni_assigned': partial(as_request, query='ni_assigned'),
+    'ni_assigned': partial(as_query, query='ni_assigned'),
     # all open bugs with open NI on them
-    'ni_assigned_open': partial(as_request, query='ni_assigned_open'),
+    'ni_assigned_open': partial(as_query, query='ni_assigned_open'),
     # all bugs they've closed
     'closed': partial(as_query, query='bugs_closed'),
     # all fixed by them in the year
